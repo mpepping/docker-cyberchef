@@ -12,7 +12,7 @@ RUN cd /srv && \
     git clone https://github.com/gchq/CyberChef.git && \
     cd CyberChef && \
     npm install && \
-    chown -r cyberchef:cyberchef /srv/CyberChef && \
+    chown -R cyberchef:cyberchef /srv/CyberChef && \
     grunt prod
 
 WORKDIR /srv/CyberChef/build/prod
