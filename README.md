@@ -12,4 +12,4 @@ docker run -d -p 8000:8000 mpepping/cyberchef
 > * <https://hub.docker.com/r/mpepping/cyberchef/>
 
 
-Using CyberChef commit f07709e80b71e2e46ee89507f7b2d11cc74ddb6e
+Using CyberChef commit be231f3a9164918c273fd332a01cac98c3a28713
