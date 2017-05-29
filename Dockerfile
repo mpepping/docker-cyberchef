@@ -5,13 +5,17 @@ RUN addgroup cyberchef -S && \
     adduser cyberchef -G cyberchef -S && \
     apk update && \
     apk add git nodejs && \
+    rm -rf /var/cache/apk/* && \
     npm install -g grunt-cli && \
     npm install -g http-server
 
 RUN cd /srv && \
-    git clone https://github.com/gchq/CyberChef.git && \
+    git clone -b master --depth=1 https://github.com/gchq/CyberChef.git && \
     cd CyberChef && \
+    rm -rf .git && \
     npm install && \
+    npm cache rm && \
+    apk del git && \
     chown -R cyberchef:cyberchef /srv/CyberChef && \
     grunt prod
 
