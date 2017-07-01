@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine:3.4
 MAINTAINER Martijn Pepping <martijn.pepping@automiq.nl>
 
 RUN addgroup cyberchef -S && \
