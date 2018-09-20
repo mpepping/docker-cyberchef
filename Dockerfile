@@ -1,4 +1,4 @@
-FROM alpine:3.5
+FROM node:alpine
 MAINTAINER Martijn Pepping <martijn.pepping@automiq.nl>
 
 RUN addgroup cyberchef -S && \
@@ -13,12 +13,15 @@ RUN cd /srv && \
     git clone -b master --depth=1 https://github.com/gchq/CyberChef.git && \
     cd CyberChef && \
     rm -rf .git && \
-    npm install && \
-    npm cache rm && \
     apk del git && \
-    chown -R cyberchef:cyberchef /srv/CyberChef && \
+    npm install && \
+    chown -R cyberchef:cyberchef /srv/CyberChef
+
+USER cyberchef
+
+RUN cd  /srv/CyberChef && \
+    npm run postinstall && \
     grunt prod
 
 WORKDIR /srv/CyberChef/build/prod
-USER cyberchef
 ENTRYPOINT ["http-server", "-p", "8000"]
