@@ -1,5 +1,5 @@
 FROM node:alpine
-MAINTAINER Martijn Pepping <martijn.pepping@automiq.nl>
+LABEL maintainer='Martijn Pepping <martijn.pepping@automiq.nl>'
 
 RUN addgroup cyberchef -S && \
     adduser cyberchef -G cyberchef -S && \
@@ -19,8 +19,7 @@ RUN cd /srv && \
 
 USER cyberchef
 
-RUN cd  /srv/CyberChef && \
-    npm run postinstall && \
+RUN cd /srv/CyberChef && \
     grunt prod
 
 WORKDIR /srv/CyberChef/build/prod
