@@ -17,8 +17,9 @@ if [ $LENGTH -ne 40 ]; then
 fi
 
 if [ "$CURRENT" != "$REMOTE" ]; then
+  git checkout master
+  git branch --set-upstream-to=origin/master master
   echo -n "$REMOTE" > ./master_sha
-  #git commit -am "Updated from ${CURRENT} to ${REMOTE}"
-  #git push
+  git commit -am "Updated from ${CURRENT} to ${REMOTE}"
 fi
 

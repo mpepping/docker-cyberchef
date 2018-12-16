@@ -20,7 +20,9 @@ node('') {
 
       stage('Commit and Push'){
         sshagent(['0787eef6-cb0e-4904-87ef-8ee1e4723b60']) {
-          sh "git push"
+          sh """
+            git push origin master
+          """
         }
       }
     }
