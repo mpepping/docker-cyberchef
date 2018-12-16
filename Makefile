@@ -5,7 +5,7 @@
 all: build
 
 build:
-	docker build -t cyberchef:master .
+	docker build -t mpepping/cyberchef:latest .
 
 clean:
-	docker rmi cyberchef:master
+	docker rmi mpepping/cyberchef:latest
