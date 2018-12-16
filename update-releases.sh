@@ -13,7 +13,7 @@ REMOTE=$(get_latest_sha "gchq/CyberChef")
 LENGTH=${#REMOTE}
 
 if [ $LENGTH -ne 40 ]; then
-  die "Probably couldn't fecth remote SHA"
+  die "Probably couldn't fetch remote SHA"
 fi
 
 if [ "$CURRENT" != "$REMOTE" ]; then
