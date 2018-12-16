@@ -19,6 +19,7 @@ fi
 if [ "$CURRENT" != "$REMOTE" ]; then
   git checkout master
   git branch --set-upstream-to=origin/master master
+  git fetch
   echo -n "$REMOTE" > ./master_sha
   git commit -am "Updated from ${CURRENT} to ${REMOTE}"
 fi
