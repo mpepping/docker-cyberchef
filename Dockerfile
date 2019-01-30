@@ -19,6 +19,7 @@ RUN cd /srv && \
 
 USER cyberchef
 
+ENV NODE_OPTIONS="--max-old-space-size=4096"
 RUN cd /srv/CyberChef && \
     grunt prod
 
