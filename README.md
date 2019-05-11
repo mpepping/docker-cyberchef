@@ -10,4 +10,3 @@ docker run -d -p 8000:8000 mpepping/cyberchef
 
 > * <https://github.com/mpepping/docker-cyberchef/>
 > * <https://hub.docker.com/r/mpepping/cyberchef/>
-
