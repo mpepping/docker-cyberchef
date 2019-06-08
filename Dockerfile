@@ -1,4 +1,4 @@
-FROM node:6.17-alpine
+FROM mpepping/node6-alpine
 LABEL maintainer='Martijn Pepping <martijn.pepping@automiq.nl>'
 
 RUN addgroup cyberchef -S && \
