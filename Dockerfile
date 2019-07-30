@@ -23,5 +23,7 @@ ENV NODE_OPTIONS="--max-old-space-size=2048"
 RUN cd /srv/CyberChef && \
     grunt prod
 
+EXPOSE 8000
+
 WORKDIR /srv/CyberChef/build/prod
 ENTRYPOINT ["http-server", "-p", "8000"]
