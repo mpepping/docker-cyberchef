@@ -1,7 +1,7 @@
-FROM node:11-alpine as build
+FROM node:11 as build
 LABEL maintainer='Martijn Pepping <martijn.pepping@automiq.nl>'
 
-RUN apk add --no-cache git
+RUN apt-get install git
 RUN npm install -g grunt-cli
 WORKDIR /srv
 
