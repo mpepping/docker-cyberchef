@@ -1,7 +1,6 @@
 FROM node:10 as build
 LABEL maintainer='Martijn Pepping <martijn.pepping@automiq.nl>'
 
-RUN apt-get install git
 RUN npm install -g grunt-cli
 WORKDIR /srv
 
