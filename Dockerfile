@@ -1,4 +1,4 @@
-FROM node:11 as build
+FROM node:10 as build
 LABEL maintainer='Martijn Pepping <martijn.pepping@automiq.nl>'
 
 RUN apt-get install git
