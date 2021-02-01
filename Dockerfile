@@ -1,4 +1,4 @@
-FROM node:10 as build
+FROM docker.io/node:10 as build
 LABEL maintainer='Martijn Pepping <martijn.pepping@automiq.nl>'
 ARG VERSION
 
@@ -14,7 +14,7 @@ ENV NODE_OPTIONS="--max-old-space-size=2048"
 RUN npx grunt prod
 
 
-FROM nginxinc/nginx-unprivileged:alpine as app
+FROM docker.io/nginxinc/nginx-unprivileged:alpine as app
 # old http-server was running on port 8000, avoid breaking change
 RUN sed -i 's|listen       8080;|listen       8000;|g' /etc/nginx/conf.d/default.conf
 
