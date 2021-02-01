@@ -1,12 +1,13 @@
 FROM node:10 as build
 LABEL maintainer='Martijn Pepping <martijn.pepping@automiq.nl>'
+ARG VERSION
 
 RUN chown -R node:node /srv
 
 USER node
 WORKDIR /srv
 
-RUN git clone -b master --depth=1 https://github.com/gchq/CyberChef.git .
+RUN git clone -b "$VERSION" --depth=1 https://github.com/gchq/CyberChef.git .
 RUN npm install
 
 ENV NODE_OPTIONS="--max-old-space-size=2048"
