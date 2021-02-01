@@ -12,7 +12,7 @@ jobs:
       matrix:
         version:
           - master
-          - 9.23.1
+          - v9.23.1
     steps:
       -
         name: Set up QEMU
