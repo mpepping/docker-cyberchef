@@ -1,14 +1,13 @@
 FROM node:10 as build
 LABEL maintainer='Martijn Pepping <martijn.pepping@automiq.nl>'
 
-RUN npm install -g grunt-cli
 WORKDIR /srv
 
 RUN git clone -b master --depth=1 https://github.com/gchq/CyberChef.git .
 RUN npm install
 
 ENV NODE_OPTIONS="--max-old-space-size=2048"
-RUN grunt prod
+RUN npx grunt prod
 
 
 FROM nginxinc/nginx-unprivileged:alpine as app
