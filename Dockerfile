@@ -1,6 +1,9 @@
 FROM node:10 as build
 LABEL maintainer='Martijn Pepping <martijn.pepping@automiq.nl>'
 
+RUN chown -R node:node /srv
+
+USER node
 WORKDIR /srv
 
 RUN git clone -b master --depth=1 https://github.com/gchq/CyberChef.git .
