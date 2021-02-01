@@ -2,6 +2,8 @@ name: ci
 
 on:
   push:
+  schedule:
+    - cron: "0 0 * * *"
 
 jobs:
   main:
@@ -37,10 +39,10 @@ jobs:
         if: ${{ matrix.version != 'master' }}
         run: echo "TAG=docker.io/mpepping/cyberchef:${{ matrix.version }}" >> $GITHUB_ENV
 
-
       -
         name: Build and push
         uses: docker/build-push-action@v2
         with:
+          push: true
           build-args: VERSION=${{ matrix.version }}
           tags: ${{ env.TAG }}
