@@ -1,34 +1,23 @@
-FROM node:11-alpine
+FROM docker.io/node:10 as build
 LABEL maintainer='Martijn Pepping <martijn.pepping@automiq.nl>'
+ARG VERSION
 
-RUN addgroup cyberchef -S && \
-    adduser cyberchef -G cyberchef -S && \
-    apk update && \
-    apk add curl git jq nodejs unzip && \
-    rm -rf /var/cache/apk/* && \
-    npm install -g grunt-cli && \
-    npm install -g http-server
+RUN chown -R node:node /srv
 
-RUN cd /srv && \
-    git clone -b master --depth=1 https://github.com/gchq/CyberChef.git && \
-    cd CyberChef && \
-    rm -rf .git && \
-    apk del git && \
-    npm install && \
-    chown -R cyberchef:cyberchef /srv/CyberChef
+USER node
+WORKDIR /srv
 
-USER cyberchef
+RUN git clone -b "$VERSION" --depth=1 https://github.com/gchq/CyberChef.git .
+RUN npm install
 
 ENV NODE_OPTIONS="--max-old-space-size=2048"
-RUN cd /srv/CyberChef && \
-    grunt prod
+RUN npx grunt prod
 
-WORKDIR /srv/CyberChef/build/prod
 
-RUN REL=$(curl -ksL "https://api.github.com/repos/gchq/CyberChef/releases/latest" | jq -r '.tag_name') && \
-    curl -s -L -O "https://github.com/gchq/CyberChef/releases/download/${REL}/CyberChef_${REL}.zip" && \
-    unzip -u CyberChef_${REL}.zip
+FROM docker.io/nginxinc/nginx-unprivileged:alpine as app
+# old http-server was running on port 8000, avoid breaking change
+RUN sed -i 's|listen       8080;|listen       8000;|g' /etc/nginx/conf.d/default.conf
+
+COPY --from=build /srv/build/prod /usr/share/nginx/html
 
 EXPOSE 8000
-
-ENTRYPOINT ["http-server", "-p", "8000"]
