@@ -37,7 +37,7 @@ jobs:
       -
         name: Set tag for release
         if: ${{ matrix.version == 'release' }}
-        run: curl -s https://api.github.com/repos/gchq/CyberChef/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/' >> $GITHUB_ENV
+        run: printf 'TAG=' && curl -s https://api.github.com/repos/gchq/CyberChef/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/' >> $GITHUB_ENV
 
       -
         name: Build and push
