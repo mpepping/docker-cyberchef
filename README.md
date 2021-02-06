@@ -19,7 +19,6 @@ A listing of all available version tags can be found on the [Docker Hub](https:/
 * [https://hub.docker.com/r/mpepping/cyberchef/](https://hub.docker.com/r/mpepping/cyberchef/)
 * [https://github.com/gchq/CyberChef/](https://github.com/gchq/CyberChef/)
 
-## Contributers
+## Contributors
 
 Thanks to @tabic and @ilyaglow for their contributions. 
-
