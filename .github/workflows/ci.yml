@@ -30,19 +30,29 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       -
+        name: Set version for master
+        if: ${{ matrix.version == 'master' }}
+        run: echo 'VERSION=master' >> $GITHUB_ENV
+
+      -
         name: Set tag for master
         if: ${{ matrix.version == 'master' }}
         run: echo "TAG=docker.io/mpepping/cyberchef:latest" >> $GITHUB_ENV
 
       -
+        name: Set version for release
+        if: ${{ matrix.version == 'release' }}
+        run: curl -s https://api.github.com/repos/gchq/CyberChef/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/VERSION=\1/' >> $GITHUB_ENV
+
+      -
         name: Set tag for release
         if: ${{ matrix.version == 'release' }}
-        run: printf 'TAG=' && curl -s https://api.github.com/repos/gchq/CyberChef/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/' >> $GITHUB_ENV
+        run: echo "TAG=docker.io/mpepping/cyberchef:${VERSION}" >> $GITHUB_ENV
 
       -
         name: Build and push
         uses: docker/build-push-action@v2
         with:
           push: true
-          build-args: VERSION=${{ matrix.version }}
+          build-args: VERSION=${{ env.VERSION }}
           tags: ${{ env.TAG }}
