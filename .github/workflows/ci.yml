@@ -12,7 +12,7 @@ jobs:
       matrix:
         version:
           - master
-          - v9.23.1
+          - release
     steps:
       -
         name: Set up QEMU
@@ -36,8 +36,8 @@ jobs:
 
       -
         name: Set tag for release
-        if: ${{ matrix.version != 'master' }}
-        run: echo "TAG=docker.io/mpepping/cyberchef:${{ matrix.version }}" >> $GITHUB_ENV
+        if: ${{ matrix.version == 'release' }}
+        run: printf 'TAG=' && curl -s https://api.github.com/repos/gchq/CyberChef/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/' >> $GITHUB_ENV
 
       -
         name: Build and push
