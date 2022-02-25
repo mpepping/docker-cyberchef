@@ -4,6 +4,7 @@
 
 GCHQ [CyberChef](https://github.com/gchq/CyberChef/) in a container. CyberChef is *the* **Cyber Swiss Army Knife** web app for encryption, encoding, compression and data analysis.
 
+New container-images for both the [CyberChef master branch](https://github.com/gchq/CyberChef) as well as new [CyberChef releases](https://github.com/gchq/CyberChef/releases) are build on a daily base. See [https://hub.docker.com/r/mpepping/cyberchef/](https://hub.docker.com/r/mpepping/cyberchef/).
 
 ## Run
 
