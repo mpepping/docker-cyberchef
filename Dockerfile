@@ -1,4 +1,4 @@
-FROM docker.io/node:10 as build
+FROM docker.io/node:17 as build
 LABEL maintainer='Martijn Pepping <martijn.pepping@automiq.nl>'
 ARG VERSION
 
