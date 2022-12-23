@@ -52,5 +52,5 @@ jobs:
         with:
           push: true
           platforms: linux/amd64,linux/arm64
-          build-args: VERSION=${{ env.VERSION }},VCS_REF=${{ GITHUB_REPOSITORY }},BUILD_DATE=${{ steps.date.outputs.date }}
+          build-args: VERSION=${{ env.VERSION }},VCS_REF=${{ env.GITHUB_REPOSITORY }},BUILD_DATE=${{ steps.date.outputs.date }}
           tags: ${{ env.TAG }}
