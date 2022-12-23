@@ -22,4 +22,4 @@ A listing of all available version tags can be found on the [Docker Hub](https:/
 
 ## Contributors
 
-Thanks to @tabic and @ilyaglow for their contributions. 
+Thanks to @tabic and @ilyaglow for their contributions.

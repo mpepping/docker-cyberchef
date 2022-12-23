@@ -1,6 +1,8 @@
-FROM docker.io/node:17 as build
-LABEL maintainer='Martijn Pepping <martijn.pepping@automiq.nl>'
-ARG VERSION
+FROM docker.io/node:18 as build
+
+LABEL maintainer="Martijn Pepping <martijn.pepping@automiq.nl>"
+
+ARG VERSION="v9.55.0"
 
 RUN chown -R node:node /srv
 
@@ -15,6 +17,18 @@ RUN npx grunt prod
 
 
 FROM docker.io/nginxinc/nginx-unprivileged:alpine as app
+
+LABEL maintainer="Martijn Pepping <martijn.pepping@automiq.nl>" \
+    org.label-schema.schema-version="1.0" \
+    org.label-schema.build-date=$BUILD_DATE \
+    org.label-schema.vcs-ref=$VCS_REF \
+    org.label-schema.name="mpepping/cyberchef" \
+    org.label-schema.description="CyberChef" \
+    org.label-schema.url="https://github.com/mpepping/docker-cyberchef" \
+    org.label-schema.vcs-url="https://github.com/mpepping/docker-cyberchef" \
+    org.label-schema.vendor="Martijn Pepping" \
+    org.label-schema.docker.cmd="docker run -it mpepping/cyberchef:latest"
+
 # old http-server was running on port 8000, avoid breaking change
 RUN sed -i 's|listen       8080;|listen       8000;|g' /etc/nginx/conf.d/default.conf
 
