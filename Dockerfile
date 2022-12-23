@@ -21,7 +21,7 @@ FROM docker.io/nginxinc/nginx-unprivileged:alpine as app
 LABEL maintainer="Martijn Pepping <martijn.pepping@automiq.nl>" \
     org.label-schema.schema-version="1.0" \
     org.label-schema.build-date=$BUILD_DATE \
-    org.label-schema.vcs-ref=$VCS_REF \
+    org.label-schema.vcs-ref="github.com/mpepping/docker-cyberchef" \
     org.label-schema.name="mpepping/cyberchef" \
     org.label-schema.description="CyberChef" \
     org.label-schema.url="https://github.com/mpepping/docker-cyberchef" \
