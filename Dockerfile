@@ -2,7 +2,7 @@ FROM docker.io/node:18 as build
 
 LABEL maintainer="Martijn Pepping <martijn.pepping@automiq.nl>"
 
-ARG VERSION="v9.55.0"
+ARG VERSION
 
 RUN chown -R node:node /srv
 
