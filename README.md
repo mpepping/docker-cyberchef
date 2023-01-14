@@ -1,6 +1,13 @@
 # docker-cyberchef
 
-[![DockerHub Badge](http://dockeri.co/image/mpepping/cyberchef)](https://hub.docker.com/r/mpepping/cyberchef/)
+[![Docker Pulls](https://badgen.net/docker/pulls/mpepping/cyberchef?icon=docker&label=pulls)](https://hub.docker.com/r/trueosiris/godaddypy/)
+[![Docker Stars](https://badgen.net/docker/stars/mpepping/cyberchef?icon=docker&label=stars)](https://hub.docker.com/r/trueosiris/godaddypy/)
+[![Docker Image Size](https://badgen.net/docker/size/mpepping/cyberchef?icon=docker&label=image%20size)](https://hub.docker.com/r/trueosiris/godaddypy/)
+![Github stars](https://badgen.net/github/stars/mpepping/docker-cyberchef?icon=github&label=stars)
+![Github forks](https://badgen.net/github/forks/mpepping/docker-cyberchef?icon=github&label=forks)
+![Github issues](https://img.shields.io/github/issues/mpepping/docker-cyberchef)
+![Github last-commit](https://img.shields.io/github/last-commit/mpepping/docker-cyberchef)
+
 
 GCHQ [CyberChef](https://github.com/gchq/CyberChef/) in a container. CyberChef is *the* **Cyber Swiss Army Knife** web app for encryption, encoding, compression and data analysis.
 
