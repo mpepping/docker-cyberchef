@@ -31,6 +31,9 @@ LABEL maintainer="Martijn Pepping <martijn.pepping@automiq.nl>" \
 # old http-server was running on port 8000, avoid breaking change
 RUN sed -i 's|listen       8080;|listen       8000;|g' /etc/nginx/conf.d/default.conf
 
+# add IPv6 listener
+RUN sed -i 's|listen       8000;|listen       8000; listen       [::]:8000;|g' /etc/nginx/conf.d/default.conf
+
 COPY --from=build /srv/build/prod /usr/share/nginx/html
 
 EXPOSE 8000
