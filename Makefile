@@ -11,7 +11,7 @@ help: ## This help.
 .DEFAULT_GOAL := help
 
 build: ## Build the image
-	docker build -t $(APP_NAME):latest .
+	docker build --build-arg VERSION=master -t $(APP_NAME):latest .
 
 clean: ## Remove the image
 	docker rmi $(APP_NAME):latest
