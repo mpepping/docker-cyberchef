@@ -28,9 +28,12 @@ LABEL maintainer="Martijn Pepping <martijn.pepping@automiq.nl>" \
     org.label-schema.vendor="Martijn Pepping" \
     org.label-schema.docker.cmd="docker run -it mpepping/cyberchef:latest"
 
-# old http-server was running on port 8000, avoid breaking change
-RUN sed -i 's|listen       8080;|listen       8000;|g' /etc/nginx/conf.d/default.conf
-
+# old http-server was running on port 8000, avoid breaking change; also, add IPv6 listener
+RUN sed -i \
+    -e 's/listen       8080;/listen       8000;/g' \
+    -e '/listen       8000;/a\' \
+    -e '    listen       [::]:8000;' /etc/nginx/conf.d/default.conf
+    
 COPY --from=build /srv/build/prod /usr/share/nginx/html
 
 EXPOSE 8000
