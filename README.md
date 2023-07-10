@@ -1,8 +1,8 @@
 # docker-cyberchef
 
-[![Docker Pulls](https://badgen.net/docker/pulls/mpepping/cyberchef?icon=docker&label=pulls)](https://hub.docker.com/r/trueosiris/godaddypy/)
-[![Docker Stars](https://badgen.net/docker/stars/mpepping/cyberchef?icon=docker&label=stars)](https://hub.docker.com/r/trueosiris/godaddypy/)
-[![Docker Image Size](https://badgen.net/docker/size/mpepping/cyberchef?icon=docker&label=image%20size)](https://hub.docker.com/r/trueosiris/godaddypy/)
+[![Docker Pulls](https://badgen.net/docker/pulls/mpepping/cyberchef?icon=docker&label=pulls)](https://hub.docker.com/r/mpepping/cyberchef/)
+[![Docker Stars](https://badgen.net/docker/stars/mpepping/cyberchef?icon=docker&label=stars)](https://hub.docker.com/r/mpepping/cyberchef/)
+[![Docker Image Size](https://badgen.net/docker/size/mpepping/cyberchef?icon=docker&label=image%20size)](https://hub.docker.com/r/mpepping/cyberchef/)
 ![Github stars](https://badgen.net/github/stars/mpepping/docker-cyberchef?icon=github&label=stars)
 ![Github forks](https://badgen.net/github/forks/mpepping/docker-cyberchef?icon=github&label=forks)
 ![Github issues](https://img.shields.io/github/issues/mpepping/docker-cyberchef)
