@@ -33,7 +33,6 @@ version: "3"
 services:
   cyber-chef:
     image: mpepping/cyberchef:latest
-    restart: unless-stopped
     ports:
       - "8000:8000"
 ```
