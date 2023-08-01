@@ -15,11 +15,27 @@ New container-images for both the [CyberChef master branch](https://github.com/g
 
 ## Run
 
+### Run with Docker Run
+
 ```bash
 docker run -d -p 8000:8000 mpepping/cyberchef
 ```
 
 A listing of all available version tags can be found on the [Docker Hub](https://hub.docker.com/r/mpepping/cyberchef/tags) page.
+
+### Run with Docker Compose
+
+To run CyberChef using the docker-compose, you can use the following docker-compose.yaml file
+
+```yaml
+version: "3"
+
+services:
+  cyber-chef:
+    image: mpepping/cyberchef:latest
+    ports:
+      - "8000:8000"
+```
 
 ## Refs
 
