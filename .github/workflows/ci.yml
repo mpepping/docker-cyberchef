@@ -43,40 +43,45 @@ jobs:
           # If the difference is less than 86400 seconds (24 hours), proceed with the next steps
           if [ $TIME_DIFF -le 86400 ]; then
             echo "New release detected. Proceeding with the next steps."
+            echo "::set-output name=proceed::true"
           else
             echo "No new release in the last 24 hours."
-            exit 0
+            echo "::set-output name=proceed::false"
           fi
       
       - name: Set up QEMU
+        if: steps.check_release.outputs.proceed == 'true'
         uses: docker/setup-qemu-action@v2
 
       - name: Set up Docker Buildx
+        if: steps.check_release.outputs.proceed == 'true'
         uses: docker/setup-buildx-action@v2
 
       - name: Login to DockerHub
+        if: steps.check_release.outputs.proceed == 'true'
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Set version for master
-        if: ${{ matrix.version == 'master' }}
+        if: matrix.version == 'master' && steps.check_release.outputs.proceed == 'true'
         run: echo 'VERSION=master' >> $GITHUB_ENV
 
       - name: Set tag for master
-        if: ${{ matrix.version == 'master' }}
+        if: matrix.version == 'master' && steps.check_release.outputs.proceed == 'true'
         run: echo "TAG=docker.io/mpepping/cyberchef:latest" >> $GITHUB_ENV
 
       - name: Set version for release
-        if: ${{ matrix.version == 'release' }}
+        if: matrix.version == 'release' && steps.check_release.outputs.proceed == 'true'
         run: curl -s https://api.github.com/repos/gchq/CyberChef/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/VERSION=\1/' >> $GITHUB_ENV
 
       - name: Set tag for release
-        if: ${{ matrix.version == 'release' }}
+        if: matrix.version == 'release' && steps.check_release.outputs.proceed == 'true'
         run: echo "TAG=docker.io/mpepping/cyberchef:${VERSION}" >> $GITHUB_ENV
 
       - name: Build and push
+        if: steps.check_release.outputs.proceed == 'true'
         timeout-minutes: 720
         uses: docker/build-push-action@v4
         with:
