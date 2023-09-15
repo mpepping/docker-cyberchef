@@ -22,24 +22,24 @@ jobs:
         run: |
           # Fetch the latest release information from the target repository
           RESPONSE=$(curl --silent --fail "https://api.github.com/repos/gchq/CyberChef/releases/latest")
-  
+
           if [ $? -ne 0 ]; then
             echo "Failed to fetch the latest release information."
             exit 1
           fi
-  
+
           # Extract the "published_at" field using jq
           PUBLISHED_AT=$(echo "$RESPONSE" | jq -r '.published_at')
-  
+
           # Convert the published_at to Unix timestamp
           PUBLISHED_TIMESTAMP=$(date -d "$PUBLISHED_AT" +%s)
-  
+
           # Get the current time and convert it to Unix timestamp
           CURRENT_TIMESTAMP=$(date +%s)
-  
+
           # Calculate the difference in seconds
           TIME_DIFF=$(expr "$CURRENT_TIMESTAMP" - "$PUBLISHED_TIMESTAMP")
-  
+
           # If the difference is less than 86400 seconds (24 hours), proceed with the next steps
           if [ $TIME_DIFF -le 86400 ]; then
             echo "New release detected. Proceeding with the next steps."
@@ -48,7 +48,7 @@ jobs:
             echo "No new release in the last 24 hours."
             echo "proceed=false" >> $GITHUB_OUTPUT
           fi
-      
+
       - name: Set up QEMU
         if: steps.check_release.outputs.proceed == 'true'
         uses: docker/setup-qemu-action@v3
@@ -81,7 +81,7 @@ jobs:
         run: echo "TAG=docker.io/mpepping/cyberchef:${VERSION}" >> $GITHUB_ENV
 
       - name: Build and push
-        if: steps.check_release.outputs.proceed == 'true' 
+        if: steps.check_release.outputs.proceed == 'true'
         timeout-minutes: 720
         uses: docker/build-push-action@v5
         with:
