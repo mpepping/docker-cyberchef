@@ -36,4 +36,7 @@ RUN sed -i \
     
 COPY --from=build /srv/build/prod /usr/share/nginx/html
 
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+    CMD [ $(curl -I -s http://127.0.0.1:8000 | head -n 1 | cut -d' ' -f2 | head -n 1) -eq 200 ] || exit 1
+
 EXPOSE 8000
