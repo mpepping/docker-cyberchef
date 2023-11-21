@@ -23,4 +23,4 @@ stop: ## Stop the container
 	docker rm -f cyberchef
 
 shell: ## Creates a shell inside the container for debug purposes
-	docker run -it --rm $(APP_NAME):latest bash
+	docker run -it --rm $(APP_NAME):latest /bin/sh
