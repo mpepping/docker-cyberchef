@@ -8,10 +8,11 @@
 ![Github issues](https://img.shields.io/github/issues/mpepping/docker-cyberchef)
 ![Github last-commit](https://img.shields.io/github/last-commit/mpepping/docker-cyberchef)
 
-
 GCHQ [CyberChef](https://github.com/gchq/CyberChef/) in a container. CyberChef is *the* **Cyber Swiss Army Knife** web app for encryption, encoding, compression and data analysis.
 
 New container-images for both the [CyberChef master branch](https://github.com/gchq/CyberChef) as well as new [CyberChef releases](https://github.com/gchq/CyberChef/releases) are build on a daily base. See [https://hub.docker.com/r/mpepping/cyberchef/](https://hub.docker.com/r/mpepping/cyberchef/).
+
+> ℹ️ **Note:** the ghcq/CyberChef project now provides an official docker image. See [https://github.com/gchq/CyberChef/](https://github.com/gchq/CyberChef/?tab=readme-ov-file#containers). This repository here is still maintained for the daily builds and the latest version tags, as the `mpepping/cyberchef` container images still have significant pull numbers.
 
 ## Run
 
