@@ -46,7 +46,7 @@ jobs:
             echo "proceed=true" >> $GITHUB_OUTPUT
           else
             echo "No new release in the last 24 hours."
-            echo "proceed=false" >> $GITHUB_OUTPUT
+            echo "proceed=true" >> $GITHUB_OUTPUT
           fi
 
       - name: Set up QEMU
