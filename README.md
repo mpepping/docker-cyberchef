@@ -7,6 +7,7 @@
 ![Github forks](https://badgen.net/github/forks/mpepping/docker-cyberchef?icon=github&label=forks)
 ![Github issues](https://img.shields.io/github/issues/mpepping/docker-cyberchef)
 ![Github last-commit](https://img.shields.io/github/last-commit/mpepping/docker-cyberchef)
+[![Build status](https://github.com/mpepping/docker-cyberchef/actions/workflows/ci.yml/badge.svg)](https://github.com/mpepping/docker-cyberchef/actions/workflows/ci.yml)
 
 GCHQ [CyberChef](https://github.com/gchq/CyberChef/) in a container. CyberChef is *the* **Cyber Swiss Army Knife** web app for encryption, encoding, compression and data analysis.
 
