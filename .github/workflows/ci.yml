@@ -21,33 +21,66 @@ jobs:
       - name: Check for new release
         id: check_release
         run: |
-          # Fetch the latest release information from the target repository
-          RESPONSE=$(curl --silent --fail "https://api.github.com/repos/gchq/CyberChef/releases/latest")
+          if [ "${{ matrix.version }}" = "release" ]; then
+            # For release builds, check for new releases
+            echo "Checking for new releases..."
+            RESPONSE=$(curl --silent --fail "https://api.github.com/repos/gchq/CyberChef/releases/latest")
 
-          if [ $? -ne 0 ]; then
-            echo "Failed to fetch the latest release information."
-            exit 1
-          fi
+            if [ $? -ne 0 ]; then
+              echo "Failed to fetch the latest release information."
+              exit 1
+            fi
 
-          # Extract the "published_at" field using jq
-          PUBLISHED_AT=$(echo "$RESPONSE" | jq -r '.published_at')
+            # Extract the "published_at" field using jq
+            PUBLISHED_AT=$(echo "$RESPONSE" | jq -r '.published_at')
 
-          # Convert the published_at to Unix timestamp
-          PUBLISHED_TIMESTAMP=$(date -d "$PUBLISHED_AT" +%s)
+            # Convert the published_at to Unix timestamp
+            PUBLISHED_TIMESTAMP=$(date -d "$PUBLISHED_AT" +%s)
 
-          # Get the current time and convert it to Unix timestamp
-          CURRENT_TIMESTAMP=$(date +%s)
+            # Get the current time and convert it to Unix timestamp
+            CURRENT_TIMESTAMP=$(date +%s)
 
-          # Calculate the difference in seconds
-          TIME_DIFF=$(expr "$CURRENT_TIMESTAMP" - "$PUBLISHED_TIMESTAMP")
+            # Calculate the difference in seconds
+            TIME_DIFF=$(expr "$CURRENT_TIMESTAMP" - "$PUBLISHED_TIMESTAMP")
 
-          # If the difference is less than 86400 seconds (24 hours), proceed with the next steps
-          if [ $TIME_DIFF -le 86400 ]; then
-            echo "New release detected. Proceeding with the next steps."
-            echo "proceed=true" >> $GITHUB_OUTPUT
+            # If the difference is less than 86400 seconds (24 hours), proceed with the next steps
+            if [ $TIME_DIFF -le 86400 ]; then
+              echo "New release detected. Proceeding with the next steps."
+              echo "proceed=true" >> $GITHUB_OUTPUT
+            else
+              echo "No new release in the last 24 hours."
+              echo "proceed=false" >> $GITHUB_OUTPUT
+            fi
           else
-            echo "No new release in the last 24 hours."
-            echo "proceed=false" >> $GITHUB_OUTPUT
+            # For master builds, check for new commits to master
+            echo "Checking for new commits to master..."
+            RESPONSE=$(curl --silent --fail "https://api.github.com/repos/gchq/CyberChef/commits/master")
+
+            if [ $? -ne 0 ]; then
+              echo "Failed to fetch the latest commit information."
+              exit 1
+            fi
+
+            # Extract the commit date
+            COMMIT_DATE=$(echo "$RESPONSE" | jq -r '.commit.committer.date')
+
+            # Convert the commit date to Unix timestamp
+            COMMIT_TIMESTAMP=$(date -d "$COMMIT_DATE" +%s)
+
+            # Get the current time and convert it to Unix timestamp
+            CURRENT_TIMESTAMP=$(date +%s)
+
+            # Calculate the difference in seconds
+            TIME_DIFF=$(expr "$CURRENT_TIMESTAMP" - "$COMMIT_TIMESTAMP")
+
+            # If the difference is less than 86400 seconds (24 hours), proceed with the next steps
+            if [ $TIME_DIFF -le 86400 ]; then
+              echo "New commit detected. Proceeding with the next steps."
+              echo "proceed=true" >> $GITHUB_OUTPUT
+            else
+              echo "No new commit in the last 24 hours."
+              echo "proceed=false" >> $GITHUB_OUTPUT
+            fi
           fi
 
       - name: Set up QEMU
