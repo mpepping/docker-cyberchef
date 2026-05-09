@@ -1,22 +1,22 @@
-FROM docker.io/node:18 as build
+FROM node:24-alpine AS build
 
 LABEL maintainer="Martijn Pepping <martijn.pepping@automiq.nl>"
 
 ARG VERSION
 
-RUN chown -R node:node /srv
+RUN apk add --no-cache git && chown -R node:node /srv
 
 USER node
 WORKDIR /srv
 
 RUN git clone -b "$VERSION" --depth=1 https://github.com/gchq/CyberChef.git .
-RUN npm install
 
-ENV NODE_OPTIONS="--max-old-space-size=2048"
-RUN npx grunt prod
+# Build
+RUN npm ci --ignore-scripts \
+    && npm run postinstall \
+    && npm run build
 
-
-FROM docker.io/nginxinc/nginx-unprivileged:alpine as app
+FROM nginxinc/nginx-unprivileged:stable-alpine AS app
 
 LABEL maintainer="Martijn Pepping <martijn.pepping@automiq.nl>" \
     org.label-schema.schema-version="1.0" \
@@ -33,7 +33,7 @@ RUN sed -i \
     -e 's/listen       8080;/listen       8000;/g' \
     -e '/listen       8000;/a\' \
     -e '    listen       [::]:8000;' /etc/nginx/conf.d/default.conf
-    
+
 COPY --from=build /srv/build/prod /usr/share/nginx/html
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
