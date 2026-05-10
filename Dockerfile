@@ -11,6 +11,8 @@ WORKDIR /srv
 
 RUN git clone -b "$VERSION" --depth=1 https://github.com/gchq/CyberChef.git .
 
+ENV NODE_OPTIONS="--max-old-space-size=4096"
+
 # Build
 RUN npm ci --ignore-scripts \
     && npm run postinstall \
