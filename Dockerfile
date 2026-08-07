@@ -1,4 +1,4 @@
-FROM node:26-alpine AS build
+FROM --platform=$BUILDPLATFORM node:26-alpine AS build
 
 LABEL maintainer="Martijn Pepping <martijn.pepping@automiq.nl>"
 
